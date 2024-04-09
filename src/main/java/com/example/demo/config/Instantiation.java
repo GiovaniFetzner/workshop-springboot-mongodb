@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.example.demo.domain.Post;
 import com.example.demo.domain.User;
+import com.example.demo.dto.AuthorDTO;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.repository.UserRepository;
 
@@ -34,11 +35,19 @@ public class Instantiation implements CommandLineRunner{
 		User alex = new User(null, "Alex Green", "alex@gmail.com"); 
 		User bob = new User(null, "Bob Grey", "bob@gmail.com"); 
 		
-		Post post1 = new Post(null,sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar para Sao Paulo", maria);
-		Post post2 = new Post(null,sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar para Sao Paulo", maria);
+		userRepository.saveAll(Arrays.asList(maria,alex,bob)); 
+		/*
+		 * Necessário salvar primeiro os usuarios para poder pegar o id correto que o
+		 * banco de dados vai gerar Somente depois de salvar os usuários que pode ser
+		 * atribuido como autor de um post (para garantir a geração do id)
+		 */
+		
+		Post post1 = new Post(null,sdf.parse("21/03/2018"), "Partiu viagem",
+				"Vou viajar para Sao Paulo", new AuthorDTO(maria));
+		Post post2 = new Post(null,sdf.parse("23/03/2018"), "Bom dia",
+				"Acordei feliz hoje!", new AuthorDTO(maria));
 		
 		
-		userRepository.saveAll(Arrays.asList(maria,alex,bob));
 		postRepository.saveAll(Arrays.asList(post1, post2));
 	}
 
