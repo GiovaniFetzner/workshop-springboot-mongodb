@@ -1,6 +1,7 @@
 package com.example.demo.resources;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,20 @@ public class PostResource {
 	public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
 		text = URL.decodeParam(text);
 		List<Post> list = service.findByTitle(text);
+
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@RequestMapping(value = "/fullsearch", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> fullSearch(
+			@RequestParam(value = "text", defaultValue = "") String text,
+			@RequestParam(value = "initialDate", defaultValue = "") String initialDate,
+			@RequestParam(value = "finalDate", defaultValue = "") String finalDate) {
+		text = URL.decodeParam(text);
+		Date initial = URL.convertDate(initialDate, new Date(0L)); //Gera o 1 de jan de 1970
+		Date finish = URL.convertDate(finalDate, new Date());
+	
+		List<Post> list = service.fullSearch(text, initial, finish);
 
 		return ResponseEntity.ok().body(list);
 	}
