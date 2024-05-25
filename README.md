@@ -38,3 +38,6 @@ Descrição:
 - **Spring Boot**: Framework para desenvolvimento de aplicativos Java.
 - **MongoDB Compass**: Ferramenta de administração para MongoDB.
 - **Postman**: Plataforma para testar APIs.
+
+
+OBS.: Projeto realizado através do curso https://www.udemy.com/share/1013hw3@TENABLv70VzogDwYZLQYBDdHoximjmZ4nI05OrfsJ0VPX_QMM-FxvO8jFb_qNWBl4g==/
